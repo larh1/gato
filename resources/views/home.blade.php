@@ -16,8 +16,8 @@
         header
     </div>
     <div id="app" class="card">
+        <router-view></router-view>
         <button class="btn btn-primary">asd</button>
-        <example-component></example-component>
     </div>
     <div class="footer">
         Tic Tac Toe - By: -LARH

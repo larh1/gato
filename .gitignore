@@ -38,3 +38,7 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 public/js/app.js
+package-lock.json
+
+public/js/
+public/mix-manifest.json
