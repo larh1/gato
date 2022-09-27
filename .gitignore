@@ -42,3 +42,6 @@ package-lock.json
 
 public/js/
 public/mix-manifest.json
+public/js/
+public/css/
+res/
