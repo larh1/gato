@@ -109,6 +109,7 @@ export default
                     // Cambiar Nombre
                     player.renamed = true;
                     player.name = new_name;
+                    this.$root.RenamePlayer(player.no, new_name)
                 }
             })
         },
@@ -118,7 +119,7 @@ export default
          */
         StartPlay()
         {
-
+            this.$emit("ChangeStageParent", "asd");
         },
 
         /**
