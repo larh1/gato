@@ -7,50 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- css Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-
+    <!-- sweetalert2 -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <!-- Fontawesome -->
+    <!-- <script src="https://kit.fontawesome.com/db9930c3f3.js" crossorigin="anonymous"></script> -->
     <!-- Custom style -->
     <link rel="stylesheet" href="css/app.css">
-    <title>Home1</title>
+    <title>Tic Tac Toe</title>
 </head>
 <style>
-    main {
-        min-height: 100vh;
-        height: 100vh;
-        font-family: "Nunito", sans-serif;
-        background: url("/img/3.svg");
-        background-repeat: no-repeat;
-        background-size: 50%;
-        background-position: center;
-    }
-
-    @media (max-width: 600px) {
-        main {
-            background: url("/img/3.svg");
-            background-repeat: no-repeat;
-            background-size: 120%;
-            background-position: center;
-        }
-    }
-
-
-    body {
-        background: linear-gradient(90deg,
-                rgba(18, 213, 255, 1) 0%,
-                rgba(81, 142, 227, 1) 100%);
-    }
 </style>
 
 <body>
     <main>
         <div class="header">
-            header
+            @include("shared.header")
         </div>
-        <div id="app" class="card">
+        <div id="app" class="container">
             <router-view></router-view>
         </div>
-        <div class="footer">
-            Tic Tac Toe - By: -LARH
-        </div>
+        <div style="height: 4rem"></div>
+        <footer class="">
+            @include("shared.footer")
+        </footer>
     </main>
     <!-- app -->
     <script src="js/app.js"></script>

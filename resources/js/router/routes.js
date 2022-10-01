@@ -1,14 +1,19 @@
 // Game
-const Game = r => require.ensure([],() => r(require("../components/GameComponent.vue")),'game')
+const Game = r => require.ensure([],() => r(require("../components/Game/GameComponent.vue")),'game')
+const Start = r => require.ensure([],() => r(require("../components/Game/StartComponent.vue")),'game')
 // About
-const About = r => require.ensure([],() => r(require("../components/AboutComponent.vue")),'about')
+const About = r => require.ensure([],() => r(require("../components/About/AboutComponent.vue")),'about')
 // 404
-const NotFound = r => require.ensure([],() => r(require("../components/NotFound.vue")),'error')
+const NotFound = r => require.ensure([],() => r(require("../components/Shared/NotFound.vue")),'error')
 export const routes = [
     {
         name: "home",
         path: "/",
-        component: Game,
+        component: Start,
+    },{
+        name: "start",
+        path: "/start",
+        component: Start,
     },
     {
         name: "game",
@@ -21,7 +26,7 @@ export const routes = [
         component: About,
     },
     {
-        path:"*",
-        component:NotFound
+        path: "*",
+        component: NotFound
     }
 ];
