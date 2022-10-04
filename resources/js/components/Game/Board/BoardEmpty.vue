@@ -1,28 +1,26 @@
 <template>
-    <!-- board -->
-    <div>
-        <div
-            class="board-container border mx-auto"
-            style="width: 14rem; height: 14rem">
-            <table class="board" width="100%" height="100%">
-                <tr>
-                    <td class="cell top b1"><span>X</span></td>
-                    <td class="cell top b2"><span>X</span></td>
-                    <td class="cell top b3"><span>X</span></td>
-                </tr>
-                <tr>
-                    <td class="cell middle b1"><span>X</span></td>
-                    <td class="cell middle b2"><span>X</span></td>
-                    <td class="cell middle b3"><span>X</span></td>
-                </tr>
-                <tr>
-                    <td class="cell bottom b1"><span>X</span></td>
-                    <td class="cell bottom b2"><span>X</span></td>
-                    <td class="cell bottom b3"><span>X</span></td>
-                </tr>
-            </table>
-        </div>
+<!-- board -->
+<div>
+    <div class="board-container border mx-auto" style="width: 14rem; height: 14rem">
+        <table class="board" width="100%" height="100%">
+            <tr>
+                <td class="cell top b1"><span class="cell-o">O</span></td>
+                <td class="cell top b2"><span class="cell-x">X</span></td>
+                <td class="cell top b3"><span class="cell-x">X</span></td>
+            </tr>
+            <tr>
+                <td class="cell middle b1"><span class="cell-x">X</span></td>
+                <td class="cell middle b2"><span class="cell-o">O</span></td>
+                <td class="cell middle b3"><span class="cell-x">X</span></td>
+            </tr>
+            <tr>
+                <td class="cell bottom b1"><span class="cell-o">O</span></td>
+                <td class="cell bottom b2"><span class="cell-x">X</span></td>
+                <td class="cell bottom b3"><span class="cell-o">O</span></td>
+            </tr>
+        </table>
     </div>
+</div>
 </template>
 
 <style>
@@ -48,15 +46,33 @@
     width: 33.33%;
     cursor: pointer;
 }
+
 .cell:hover {
     background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cell span {
+    font-size: 2rem;
+    opacity: 0;
+}
+
+.cell:hover span {
+    opacity: .5;
+}
+
+.cell-o {
+    color: var(--primary);
+}
+
+.cell-x {
+    color: var(--secondary);
 }
 </style>
 
 <script>
-export default {
-    mounted() {
-        console.log("Component mounted.");
-    },
+export default
+{
+    mounted()
+    {},
 };
 </script>

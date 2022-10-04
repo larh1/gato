@@ -11,6 +11,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Fontawesome -->
     <script src="https://kit.fontawesome.com/db9930c3f3.js" crossorigin="anonymous"></script>
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <!-- Custom style -->
     <link rel="stylesheet" href="css/app.css">
     <title>Tic Tac Toe</title>

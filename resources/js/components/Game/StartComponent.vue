@@ -1,10 +1,9 @@
 <template>
-<div class="container text-center">
+<div class="container text-center animate__animated animate__fadeInUp animate__faster">
     <!-- Players -->
     <div class="row players mt-4">
-        <input type="text" @click="ChangeName(player1)" readonly class="player col-12" v-model="player1.name" data-bs-toggle="tooltip" data-bs-placement="top" title="Jugador 1">
-        <input type="text" @click="ChangeName(player2)" readonly class="player col-12" v-model="player2.name" data-bs-toggle="tooltip" data-bs-placement="top" title="Jugador 2">
-
+        <input :class="player1.renamed?'':'animated'" type="text" @click="ChangeName(player1)" readonly class="player player1 col-12 " v-model="player1.name" data-bs-toggle="tooltip" data-bs-placement="top" title="Jugador 1">
+        <input :class="player2.renamed?'':'animated'" type="text" @click="ChangeName(player2)" readonly class="player player2 col-12 " v-model="player2.name" data-bs-toggle="tooltip" data-bs-placement="top" title="Jugador 2">
     </div>
     <!-- Board -->
     <div class="my-4">
@@ -16,7 +15,7 @@
         <button @click="StartPlay" class="btn btn-secondary text-white btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Comenzar Juego">
             <i class="btn-action_icon fa-solid fa-play"></i>
         </button>
-        <button @click="ShowHelp" class="btn btn-primary-outline text-white btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Ayuda">
+        <button @click="ShowHelp" class="btn btn-primary1 text-white btn-action" data-bs-toggle="tooltip" data-bs-placement="top" title="Ayuda">
             <i class="btn-action_icon fa-solid fa-question"></i>
         </button>
     </div>
@@ -29,9 +28,18 @@
     border: none;
     text-align: center;
     cursor: pointer;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     margin-top: 5px;
     background-color: transparent;
+}
+
+.animated {
+    animation: pulse 3s infinite;
+    animation-delay: 2s;
+}
+
+.player1 {
+    animation-delay: 4s;
 }
 
 .player:focus {
@@ -144,6 +152,7 @@ export default
     },
 
     mounted()
-    {}
+    {
+    }
 }
 </script>
