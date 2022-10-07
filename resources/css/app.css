@@ -6,6 +6,9 @@
     --secondary: #ffbc1f;
     --gray: #d1d1d1;
     --black: #313131;
+    --red:#dc3545;
+    --yellow:#ffc107;
+    --green:#198754;
 }
 
 .btn-primary {
