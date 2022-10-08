@@ -1,18 +1,24 @@
 <template>
 <div class="container animate__animated animate__fadeInDown animate__faster">
-    <time-game />
-    <br>
-    <board-game />
-    <br>
-    <!-- Actions -->
-    <div class="text-center ms-3">
-        <span v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
-            <i :class="'game-action fa-solid '+a.icon"></i>
-        </span>
+    <div class="row" style="align-items:center">
+        <div class="col col-md-8">
+            <time-game />
+            <br>
+            <board-game />
+            <br>
+            <!-- Actions -->
+            <div class="text-center ms-3">
+                <span v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
+                    <i :class="'game-action fa-solid '+a.icon"></i>
+                </span>
+            </div>
+            <br>
+            <br>
+        </div>
+        <div class="col">
+            <score-game></score-game>
+        </div>
     </div>
-    <br>
-    <br>
-    <score-game></score-game>
 </div>
 </template>
 
