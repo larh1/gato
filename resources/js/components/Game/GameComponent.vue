@@ -10,6 +10,9 @@
             <i :class="'game-action fa-solid '+a.icon"></i>
         </span>
     </div>
+    <br>
+    <br>
+    <score-game></score-game>
 </div>
 </template>
 
@@ -50,6 +53,7 @@
 
 <script>
 const BoardGame = r => require.ensure([], () => r(require("./Board/BoardGame.vue")), "game");
+const ScoreComponent = r => require.ensure([], () => r(require("./ScoreComponent.vue")), "game");
 const TimeComponent = r => require.ensure([], () => r(require("./TimeComponent.vue")), "game");
 export default
 {
@@ -62,7 +66,8 @@ export default
     components:
     {
         "board-game": BoardGame,
-        "time-game": TimeComponent
+        "time-game": TimeComponent,
+        "score-game": ScoreComponent,
     },
     methods:
     {

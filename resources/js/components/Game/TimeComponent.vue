@@ -6,7 +6,7 @@
         </span>
         <br>
         <br>
-        <span class="current_player fw-bold text-white">Turno de {{current_player}}</span>
+        <span class="current_player">Turno de {{current_player}}</span>
     </div>
 </div>
 </template>
@@ -23,6 +23,8 @@
 .current_player
 {
     font-size: 1.2rem;
+    font-weight: bold;
+    color: white;
 }
 </style>
 
