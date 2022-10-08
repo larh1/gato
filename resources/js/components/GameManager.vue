@@ -7,18 +7,23 @@
     <template v-if="current_stage==2">
         <gato-game />
     </template>
+    <template v-if="current_stage==3">
+        <gato-winner />
+    </template>
 </div>
 </template>
 
 <script>
 const Game = r => require.ensure([], () => r(require("./Game/GameComponent.vue")), "game");
 const Start = r => require.ensure([], () => r(require("./Game/StartComponent.vue")), "game");
+const Winner = r => require.ensure([], () => r(require("./Game/WinnerComponent.vue")), "game");
 export default
 {
     components:
     {
         "gato-game": Game,
         "gato-start": Start,
+        "gato-winner": Winner,
     },
     data()
     {

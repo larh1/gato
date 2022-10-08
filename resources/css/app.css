@@ -6,9 +6,9 @@
     --secondary: #ffbc1f;
     --gray: #d1d1d1;
     --black: #313131;
-    --red:#dc3545;
-    --yellow:#ffc107;
-    --green:#198754;
+    --red: #dc3545;
+    --yellow: #ffc107;
+    --green: #198754;
 }
 
 .btn-primary {
@@ -88,4 +88,37 @@ footer .footer p span {
 }
 .text-secondary {
     color: var(--secondary);
+}
+/* Actions */
+.game-actions {
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    margin-right: 1rem;
+    display: inline-flex;
+}
+
+.game-action {
+    height: 1.5rem;
+    width: 1.5rem;
+    display: block;
+    color: white;
+}
+
+.game-actions_print {
+    background-color: var(--primary);
+}
+
+.game-actions_hint {
+    background-color: var(--yellow);
+}
+
+.game-actions_exit {
+    background-color: var(--red);
+}
+
+.game-actions_restart {
+    background-color: var(--green);
 }
