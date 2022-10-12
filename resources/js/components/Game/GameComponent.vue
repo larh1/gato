@@ -50,6 +50,7 @@ export default
             list_actions: [],
             cur_time: "00:00",
             rules_winners: [],
+            players_names: [],
 
             // Cronometro
             current_player_name: "Jugador 1",
@@ -137,6 +138,10 @@ export default
                     no: i
                 });
             });
+
+            // Configuración inicial de los jugadores
+            this.players_names = this.$root.GetPlayersNames();
+            this.current_player_name = this.players_names[this.current_player-1];
         },
 
         /**
@@ -160,6 +165,7 @@ export default
             this.CheckWinner(cell.id);
             // Cambiar de jugador
             this.current_player = this.current_player == 1 ? 2 : 1;
+            this.current_player_name = this.players_names[this.current_player - 1];
         },
 
         /**

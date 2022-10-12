@@ -65,6 +65,18 @@ const app = new Vue({
                 this.current_progress = 1; // Ventana inicial
             return this.current_progress;
             // return {...this.current_progress};
+        },
+
+        /**
+         * Obtener los nombres de los judagores
+         * @returns array Nombres de los jugadores
+         */
+        GetPlayersNames()
+        {
+            return [
+                this.players.player1.name,
+                this.players.player2.name,
+            ]
         }
     },
     mounted()
