@@ -9,13 +9,18 @@
                 </span>
                 <br>
                 <br>
-                <span class="current_player">Turno de {{current_player_name}}</span>
+                <template v-if="finished">
+                    <span class="current_player">Ganador: {{player_winner}}</span>
+                </template>
+                <template v-else>
+                    <span class="current_player">Turno de {{current_player_name}}</span>
+                </template>
             </div>
             <br>
             <div class="board-container border mx-auto text-center">
                 <table class="board" width="100%" height="100%">
                     <tr v-for="(f,i) in tablero" :key="i">
-                        <td v-for="(c,j) in f" :key="j" class="cell" :class="c.class_cell" @click="Tiro(i,j)">
+                        <td :id="'cl_'+c.id" v-for="(c,j) in f" :key="j" class="cell" :class="c.class_cell" @click="Tiro(i,j)">
                             <span :class="c.class_tiro">{{c.tiro}}</span>
                         </td>
                     </tr>
@@ -51,6 +56,8 @@ export default
             cur_time: "00:00",
             rules_winners: [],
             players_names: [],
+            finished: false,
+            player_winner:"",
 
             // Cronometro
             current_player_name: "Jugador 1",
@@ -141,7 +148,7 @@ export default
 
             // Configuración inicial de los jugadores
             this.players_names = this.$root.GetPlayersNames();
-            this.current_player_name = this.players_names[this.current_player-1];
+            this.current_player_name = this.players_names[this.current_player - 1];
         },
 
         /**
@@ -151,6 +158,7 @@ export default
          */
         Tiro(fila, columna)
         {
+            if(this.finished)return; // Partida terminada
             // No se puede tirar 2 veces la misma
             if (this.tablero[fila][columna].checked) return;
 
@@ -196,9 +204,22 @@ export default
                     if (n == 3)
                     {
                         // Ganó
-                        console.error("Regla ganadora", rw);
-                        alert("ganador", rw)
+                        break; // TODO: Buscar mejor manera de salir de la partida
                     }
+                }
+                if (n == 3)
+                {
+                    // Marcar la regla ganadora
+                    rw.rules.forEach(r =>
+                    {
+                        let cl = document.getElementById("cl_" + r.r);
+                        cl.style.outline = "1px solid red";
+                        cl.style.outlineOffset = "-1px";
+                    })
+                    this.finished = true;
+                    this.player_winner=this.current_player_name;
+                    // TODO: Actualizar marcador
+                    break;
                 }
             }
         },
