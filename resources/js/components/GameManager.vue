@@ -5,7 +5,7 @@
         <gato-start @ChangeStageParent="ChangeStage" />
     </template>
     <template v-if="current_stage==2">
-        <gato-game />
+        <gato-game @showWinner="showWinner" />
     </template>
     <template v-if="current_stage==3">
         <gato-winner />
@@ -49,6 +49,14 @@ export default
         {
             this.current_stage = this.$root.current_progress;
         },
+
+        /**
+         * Mostrar el ganador del juego
+         */
+        showWinner()
+        {
+            this.current_stage=3;
+        }
     },
     mounted()
     {

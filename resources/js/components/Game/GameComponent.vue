@@ -1,7 +1,7 @@
 <template>
 <div class="container animate__animated animate__fadeInDown animate__faster">
     <div class="row" style="align-items:center">
-        <div class="col col-md-8">
+        <div class="col col-md-8 mb-5">
             <!-- Timer -->
             <div class="text-center mt-4">
                 <span class="time_time">
@@ -30,7 +30,7 @@
 
             <!-- Actions -->
             <div class="text-center ms-3">
-                <span v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
+                <span @click="CallAction(a.action)" v-for="a in list_actions" :key="a.id" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
                     <i :class="'game-action fa-solid '+a.icon"></i>
                 </span>
             </div>
@@ -57,11 +57,14 @@ export default
             rules_winners: [],
             players_names: [],
             finished: false,
-            player_winner:"",
+            player_winner: "",
+            total_winners: 0,
 
             // Cronometro
             current_player_name: "Jugador 1",
             current_player: 1,
+
+            printed: false,
         }
     },
     components:
@@ -101,18 +104,7 @@ export default
             this.tablero = tablero_aux;
             this.current_player = 1; // Jugador inicial
 
-            // Acciones del juego
-            this.list_actions = [
-            {
-                class: "game-actions_hint",
-                tooltip: "Ayuda",
-                icon: "fa-lightbulb",
-            },
-            {
-                class: "game-actions_restart",
-                tooltip: "Reiniciar",
-                icon: "fa-rotate-right",
-            }, ];
+            this.InitialActions();
 
             // Crear reglas
             let rules_w_aux = [ // i sum
@@ -126,6 +118,7 @@ export default
                 [3, 5, 7], // 7 15
             ]
 
+            this.rules_winners = [];
             rules_w_aux.forEach((r, i) =>
             {
                 let aux = [];
@@ -158,7 +151,7 @@ export default
          */
         Tiro(fila, columna)
         {
-            if(this.finished)return; // Partida terminada
+            if (this.finished) return; // Partida terminada
             // No se puede tirar 2 veces la misma
             if (this.tablero[fila][columna].checked) return;
 
@@ -210,23 +203,182 @@ export default
                 if (n == 3)
                 {
                     // Marcar la regla ganadora
+                    /**
+                     * Coloca un borde a todas las celdas de la linea ganadora
+                     */
                     rw.rules.forEach(r =>
                     {
-                        let cl = document.getElementById("cl_" + r.r);
-                        cl.style.outline = "1px solid red";
-                        cl.style.outlineOffset = "-1px";
+                        // let cl = document.getElementById("cl_" + r.r);
+                        // cl.style.outline = "1px solid red";
+                        // cl.style.outlineOffset = "-1px";
                     })
                     this.finished = true;
-                    this.player_winner=this.current_player_name;
+                    this.player_winner = this.current_player_name;
+                    this.total_winners++;
                     // TODO: Actualizar marcador
+                    if (this.total_winners < 1)
+                    {
+                        this.RestartOptions()
+                    }
+                    else
+                    {
+                        // Mostrar el ganador
+                        setTimeout(() =>
+                        {
+                            this.ShowWinner(); // Juego finalizado
+                        }, 1500);
+                    }
                     break;
                 }
             }
         },
+
+        /**
+         * Acciones iniciales
+         */
+        InitialActions()
+        {
+            // Acciones del juego
+            this.list_actions = [
+            {
+                id: "act_hint",
+                class: "game-actions_hint",
+                tooltip: "Dame una pista",
+                icon: "fa-lightbulb",
+                action: "hint"
+            },
+            {
+                id: "act_help",
+                class: "game-actions_print",
+                tooltip: "Ayuda",
+                icon: "fa-question",
+                action: "help"
+            }, ];
+        },
+
+        /**
+         * Acciones para reiniciar partida
+         */
+        RestartOptions()
+        {
+            this.list_actions = [
+            {
+                id: "act_help",
+                class: "game-actions_print",
+                tooltip: "Ayuda",
+                icon: "fa-question",
+                action: "help"
+            },
+            {
+                id: "act_exit",
+                class: "game-actions_restart",
+                tooltip: "Reiniciar",
+                icon: "fa-rotate-left",
+                action: "restart"
+            }, ]
+        },
+
+        /**
+         * Acciones cuando la partida (No el juego) finalizó
+         */
+        ShowWinner()
+        {
+            // Guardar datos del ganador
+            this.$emit("showWinner");
+        },
+
+        /**
+         * Call the action
+         */
+        CallAction(a)
+        {
+            if (a == "hint") this.Hint();
+            else if (a == "help") this.Help();
+            else if (a == "restart") this.Restart();
+            else if (a == "print") this.Print();
+            else if (a == "exit") this.Exit();
+        },
+
+        /**
+         * Mostrar una ayuda libre para tirar
+         */
+        Hint()
+        {
+            console.error("hint");
+        },
+
+        /**
+         * Mostrar las reglas del juego
+         */
+        Help()
+        {
+            Swal.fire(
+            {
+                title: '<strong>Tic Tac Toe</strong>',
+                html: "<ol> <li> El jugador 1 selecciona una casilla dentro del tablero. Después, el movimiento pasa al jugador 2 </li>" +
+                    "<li>El jugador 2 selecciona una celda libre y el movimiento vuelve al jugador 1</li>" +
+                    "<li>El juego continúa hasta que se llenan todas las celdas o uno de los jugadores hace una cadena de tres símbolos idénticos </li>" +
+                    "<br>La fila puede ser horizontal, vertical o diagonal. <br>" +
+                    "<br>!Evita que el otro jugador logre tener los 3 en raya!" +
+                    "</ol>",
+                showCloseButton: true,
+                confirmButtonColor: "#5bb85d",
+                confirmButtonText: "<i class='fa-solid fa-thumbs-up'></i> Entendido!",
+            })
+        },
+
+        /**
+         * Iniciar una nueva partida
+         */
+        Restart()
+        {
+            this.Init();
+            this.finished = false;
+        },
+
+        /**
+         * Mostrar el documento de juego ganado
+         */
+        Print()
+        {
+            console.error("print");
+            this.printed = true;
+        },
+
+        /**
+         * Regresar a la pantala inicial
+         */
+        async Exit()
+        {
+            let title = "¿Quieres salir del juego?",
+                doc = "";
+            if (!this.printed) doc = "<b>No has descargado tu comprobante!</b>"
+            let res = await Swal.fire(
+            {
+                title: title,
+                html: doc,
+                showCancelButton: true,
+                confirmButtonColor: '#ee6055',
+                cancelButtonColor: '#68b63e',
+                cancelButtonText: 'Aún no',
+                confirmButtonText: 'Sí, salir',
+            })
+            if (res.isConfirmed) // Volver al inicio
+            {
+                this.$emit("exit");
+                this.$root.ChangeStage(3);
+            }
+        },
+
     },
     mounted()
     {
         this.Init();
+        // Mostrar el ganador
+                        setTimeout(() =>
+                        {
+                            this.ShowWinner(); // Juego finalizado
+                        }, 1500);
     }
 }
 </script>

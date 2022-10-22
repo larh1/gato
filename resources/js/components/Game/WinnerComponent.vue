@@ -1,6 +1,6 @@
 <template>
 <!-- board -->
-<div>
+<div class="container animate__animated animate__zoomIn animate__faster">
     <div class="text-center" style="margin-top:-1rem">
         <img class="mx-auto" src="img/winner.png" alt="Winner.png" width="180">
     </div>
