@@ -7,20 +7,10 @@
     <p class="h5 text-center fw-bold text-white mb-2">JOSE PEREZ LEON</p>
     <div class="board-container border mx-auto text-center">
         <table class="board" width="100%" height="100%">
-            <tr>
-                <td class="cell top b1"><span class="cell-o">O</span></td>
-                <td class="cell top b2"><span class="cell-x"></span></td>
-                <td class="cell top b3"><span class="cell-x">X</span></td>
-            </tr>
-            <tr>
-                <td class="cell middle b1"><span class="cell-x">X</span></td>
-                <td class="cell middle b2"><span class="cell-o">O</span></td>
-                <td class="cell middle b3"><span class="cell-x">X</span></td>
-            </tr>
-            <tr>
-                <td class="cell bottom b1"><span class="cell-o">O</span></td>
-                <td class="cell bottom b2"><span class="cell-x">X</span></td>
-                <td class="cell bottom b3"><span class="cell-o">O</span></td>
+            <tr v-for="(f,i) in winner_board" :key="i">
+                <td :id="'cl_'+c.id" v-for="(c,j) in f" :key="j" class="cell" :class="c.class_cell" @click="Tiro(i,j)">
+                    <span :class="c.class_tiro">{{c.tiro}}</span>
+                </td>
             </tr>
         </table>
     </div>
@@ -80,13 +70,13 @@ export default
     {
         return {
             list_actions: [],
+            winner_board: [],
         }
     },
     methods:
     {
         Init()
         {
-
             this.list_actions = [
             {
                 class: "game-actions_print",
@@ -107,6 +97,8 @@ export default
     },
     mounted()
     {
+        // Obtener tablero ganador
+        this.winner_board = this.$root.GetWinnerBoard();
         this.Init();
     },
 };

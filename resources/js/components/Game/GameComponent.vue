@@ -58,7 +58,9 @@ export default
             players_names: [],
             finished: false,
             player_winner: "",
-            total_winners: 0,
+            total_winners: 2, // Partidas Totales
+            total_winners_j1: 0,
+            total_winners_j2: 0,
 
             // Cronometro
             current_player_name: "Jugador 1",
@@ -214,13 +216,12 @@ export default
                     })
                     this.finished = true;
                     this.player_winner = this.current_player_name;
-                    this.total_winners++;
+                    // Jugador actual +1 punto
+                    if (this.current_player == 1) this.total_winners_j1++;
+                    else this.total_winners_j2++;
                     // TODO: Actualizar marcador
-                    if (this.total_winners < 1)
-                    {
-                        this.RestartOptions()
-                    }
-                    else
+                    if (this.total_winners_j1 >= this.total_winners ||
+                        this.total_winners_j2 >= this.total_winners)
                     {
                         // Mostrar el ganador
                         setTimeout(() =>
@@ -228,6 +229,8 @@ export default
                             this.ShowWinner(); // Juego finalizado
                         }, 1500);
                     }
+                    else
+                        this.RestartOptions()
                     break;
                 }
             }
@@ -284,6 +287,10 @@ export default
         ShowWinner()
         {
             // Guardar datos del ganador
+            this.$root.SaveWinnerBoard(
+            {
+                ...this.tablero
+            })
             this.$emit("showWinner");
         },
 
@@ -374,11 +381,6 @@ export default
     mounted()
     {
         this.Init();
-        // Mostrar el ganador
-                        setTimeout(() =>
-                        {
-                            this.ShowWinner(); // Juego finalizado
-                        }, 1500);
     }
 }
 </script>

@@ -8,7 +8,6 @@ import { routes } from "./router/routes.js";
 require("./bootstrap");
 
 window.Vue = Vue;
-
 // Router
 Vue.use(VueRouter);
 
@@ -22,7 +21,7 @@ const app = new Vue({
     el: "#app",
     router: router,
     data: {
-        current_progress: 1, // Inicio
+        current_progress: 2, // Inicio
         players:
         {
             player1:
@@ -34,6 +33,7 @@ const app = new Vue({
                 name: "Jugador 2",
             }
         },
+        winnerBoard: [],
     },
     methods:
     {
@@ -77,7 +77,26 @@ const app = new Vue({
                 this.players.player1.name,
                 this.players.player2.name,
             ]
-        }
+        },
+
+        /**
+         * Guarda el tablero de la última partida ganadora
+         * @param array board Tablero ganador
+         */
+        SaveWinnerBoard(board)
+        {
+            this.winnerBoard = board;
+        },
+
+        /**
+         * Obtiene el tablero de la última partida ganadora
+         * @param array board Tablero ganador
+         */
+        GetWinnerBoard()
+        {
+            return this.winnerBoard;
+        },
+
     },
     mounted()
     {
