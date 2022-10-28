@@ -172,6 +172,24 @@ export default
             // Cambiar de jugador
             this.current_player = this.current_player == 1 ? 2 : 1;
             this.current_player_name = this.players_names[this.current_player - 1];
+            // Detectar Empate
+            let libre = this.auxHint();
+            if (libre == 0)
+            {
+                Swal.fire(
+                {
+                    title: 'Empate',
+                    text: "Ningún jugador ganó",
+                    showClass:
+                    {
+                        popup: 'animate__animated animate__fadeInDown animate__faster'
+                    },
+                    confirmButtonColor: "#5bb85d",
+                    confirmButtonText: "<i class='ms-1 fa-solid fa-rotate-right fa-xl'></i> Otra vez",
+                });
+                // Mostrar acciones de juego finalizado
+                this.RestartOptions();
+            }
         },
 
         /**
