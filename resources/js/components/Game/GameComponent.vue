@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="col">
-            <score-game></score-game>
+            <score-game ref="score_game"></score-game>
         </div>
     </div>
 </div>
@@ -58,7 +58,7 @@ export default
             players_names: [],
             finished: false,
             player_winner: "",
-            total_winners: 1, // Partidas Totales
+            total_winners: 3, // Partidas Totales
             total_winners_j1: 0,
             total_winners_j2: 0,
 
@@ -219,7 +219,8 @@ export default
                     // Jugador actual +1 punto
                     if (this.current_player == 1) this.total_winners_j1++;
                     else this.total_winners_j2++;
-                    // TODO: Actualizar marcador
+                    // Actualizar marcador
+                    this.SetScore(this.current_player); // Actualizar marcador
                     if (this.total_winners_j1 >= this.total_winners ||
                         this.total_winners_j2 >= this.total_winners)
                     {
@@ -230,7 +231,7 @@ export default
                         }, 1500);
                     }
                     else
-                        this.RestartOptions()
+                        this.RestartOptions(); // Mostrar opciones para reiniciar
                     break;
                 }
             }
@@ -301,6 +302,7 @@ export default
         {
             if (a == "hint") this.Hint();
             else if (a == "help") this.Help();
+            else if (a == "restart") this.Restart();
         },
 
         /**
@@ -347,6 +349,14 @@ export default
         {
             console.error("print");
             this.printed = true;
+        },
+
+        /**
+         * Guarda el ganador de la partida
+         */
+        SetScore(player_no)
+        {
+            this.$refs.score_game.SetWinner(player_no);
         },
     },
     mounted()

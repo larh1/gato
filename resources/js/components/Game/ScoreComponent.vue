@@ -7,17 +7,9 @@
                 <td width="20%" class="cell_number_indicator"><span class="">#</span></td>
                 <td width="80%" class="cell_winner"><span class="">Ganador</span></td>
             </tr>
-            <tr>
-                <td class="cell_number"><span class="">1</span></td>
-                <td class="cell-x"><span class="">X</span></td>
-            </tr>
-            <tr>
-                <td class="cell_number"><span class="">2</span></td>
-                <td class="cell-o"><span class="">O</span></td>
-            </tr>
-            <tr>
-                <td class="cell_number"><span class="">3</span></td>
-                <td class="cell-o"><span class="">O</span></td>
+            <tr :key="i" v-for="(p,i) in winners">
+                <td class="cell_number"><span class="">{{p.no}}</span></td>
+                <td :class="p.class"><span class="">{{p.winner}}</span></td>
             </tr>
         </table>
     </div>
@@ -52,7 +44,51 @@
 <script>
 export default
 {
+    data()
+    {
+        return {
+            current_game: 0,
+            winners: [
+            {
+                no: "11",
+                winner: "",
+                class: ""
+            }]
+        }
+    },
+    methods:
+    {
+        Init()
+        {
+            this.winners=[];
+            for (let i = 0; i < 5; i++)
+            {
+                let n = i < 3 ? i + 1 : "";
+                this.winners.push(
+                {
+                    no: n,
+                    winner: "",
+                    class: ""
+                });
+            }
+        },
+
+        /**
+         * Guarda el ganador de la partida
+         * @param player No del jugador
+         */
+        SetWinner(player)
+        {
+            // Colocar la marca del ganador
+            this.winners[this.current_game].winner = player == 1 ? "X" : "O";
+            this.winners[this.current_game].class = player == 1 ? "cell-x" : "cell-o";
+            this.winners[this.current_game].no = this.current_game+1;
+            this.current_game++;
+        },
+    },
     mounted()
-    {},
+    {
+        this.Init();
+    },
 };
 </script>
