@@ -61,7 +61,7 @@ export default
             total_winners: 3, // Partidas Totales
             total_winners_j1: 0,
             total_winners_j2: 0,
-
+            hinted: 0,
             // Cronometro
             current_player_name: "Jugador 1",
             current_player: 1,
@@ -156,6 +156,9 @@ export default
             if (this.finished) return; // Partida terminada
             // No se puede tirar 2 veces la misma
             if (this.tablero[fila][columna].checked) return;
+
+            // Quitar celda de pista
+            this.RemoveHint();
 
             let tiro = this.current_player == 1 ? "x" : "o";
             let cell = this.tablero[fila][columna];
@@ -306,11 +309,52 @@ export default
         },
 
         /**
-         * Mostrar una ayuda libre para tirar
+         * Mostrar una celda libre para tirar
          */
         Hint()
         {
-            console.error("hint");
+            // Obtener celda
+            let id_cell = this.auxHint();
+            if (id_cell > 0)
+            {
+                this.hinted = id_cell;
+                // Marcar
+                let cl = document.getElementById("cl_" + id_cell);
+                cl.classList.add("resplandor");
+                cl.classList.add("parpadea");
+            }
+            else
+                alert("No hay");
+        },
+
+        /**
+         * Elimina el marcado de la celda de pista
+         */
+        RemoveHint()
+        {
+            if (this.hinted > 0)
+            {
+                let cl = document.getElementById("cl_" + this.hinted);
+                cl.classList.remove("resplandor");
+                cl.classList.remove("parpadea");
+            }
+        },
+
+        /**
+         * Obtener el Id de la celda libre
+         */
+        auxHint()
+        {
+            // Recorrer todas las celdas del tablero
+            for (let i = 0; i < this.tablero.length; i++)
+            {
+                for (let j = 0; j < this.tablero[0].length; j++)
+                {
+                    const col = this.tablero[i][j];
+                    if (!col.checked) return col.id;
+                }
+            }
+            return 0;
         },
 
         /**
@@ -340,6 +384,7 @@ export default
         {
             this.Init();
             this.finished = false;
+            this.hinted = 0;
         },
 
         /**
