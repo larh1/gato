@@ -153,6 +153,8 @@ export default
 
     mounted()
     {
+        // Poner scroll al inicio
+        document.documentElement.scrollTop = 0;
     }
 }
 </script>

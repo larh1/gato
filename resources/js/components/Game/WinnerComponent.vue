@@ -114,7 +114,7 @@ export default
          */
         Restart()
         {
-            console.error("reiniciar");
+            this.$emit("restart");
         },
 
         /**

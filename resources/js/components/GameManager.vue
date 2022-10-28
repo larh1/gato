@@ -67,9 +67,12 @@ export default
             this.$root.EndGame();
         },
 
+        /**
+         * Volver a jugar con los mismos jugadore
+         */
         restart()
         {
-
+            this.current_stage=2;
         },
     },
     mounted()
