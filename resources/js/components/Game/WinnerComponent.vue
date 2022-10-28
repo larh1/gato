@@ -17,7 +17,7 @@
     <p class="h6 text-white text-center mt-3">Tiempo total: 00:30 seg</p>
     <!-- Actions -->
     <div class="text-center ms-3">
-        <span v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
+        <span @click="CallAction(a.action)" v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
             <i :class="'game-action fa-solid '+a.icon"></i>
         </span>
     </div>
@@ -71,6 +71,7 @@ export default
         return {
             list_actions: [],
             winner_board: [],
+            printed: false,
         }
     },
     methods:
@@ -82,17 +83,71 @@ export default
                 class: "game-actions_print",
                 tooltip: "Imprimir",
                 icon: "fa-print",
+                action: "print",
             },
             {
                 class: "game-actions_restart",
                 tooltip: "Reiniciar",
                 icon: "fa-rotate-right",
+                action: "restart",
             },
             {
                 class: "game-actions_exit",
                 tooltip: "Salir",
                 icon: "fa-right-from-bracket",
+                action: "exit",
             }, ];
+        },
+
+        /**
+         * Call the action
+         */
+        CallAction(a)
+        {
+            if (a == "restart") this.Restart();
+            else if (a == "print") this.Print();
+            else if (a == "exit") this.Exit();
+        },
+
+        /**
+         * Iniciar una nueva partida
+         */
+        Restart()
+        {
+            console.error("reiniciar");
+        },
+
+        /**
+         * Regresar a la pantala inicial
+         */
+        async Exit()
+        {
+            let title = "¿Quieres salir del juego?",
+                doc = "";
+            if (!this.printed) doc = "<b>No has descargado tu comprobante!</b>"
+            let res = await Swal.fire(
+            {
+                title: title,
+                html: doc,
+                showCancelButton: true,
+                confirmButtonColor: '#ee6055',
+                cancelButtonColor: '#68b63e',
+                cancelButtonText: 'Aún no',
+                confirmButtonText: 'Sí, salir',
+            });
+            if (res.isConfirmed) // Volver al inicio
+            {
+                this.$emit("exit");
+            }
+        },
+
+        /**
+         * Mostrar el documento de juego ganado
+         */
+        Print()
+        {
+            console.error("print");
+            this.printed = true;
         },
     },
     mounted()

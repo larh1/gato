@@ -8,7 +8,7 @@
         <gato-game @showWinner="showWinner" />
     </template>
     <template v-if="current_stage==3">
-        <gato-winner />
+        <gato-winner @exit="exit" @restart="restart" />
     </template>
 </div>
 </template>
@@ -55,8 +55,22 @@ export default
          */
         showWinner()
         {
-            this.current_stage=3;
-        }
+            this.current_stage = 3;
+        },
+
+        /**
+         * Terminar el juego y volver a pantalla inicial
+         */
+        exit()
+        {
+            this.current_stage = 1;
+            this.$root.EndGame();
+        },
+
+        restart()
+        {
+
+        },
     },
     mounted()
     {

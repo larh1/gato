@@ -58,7 +58,7 @@ export default
             players_names: [],
             finished: false,
             player_winner: "",
-            total_winners: 2, // Partidas Totales
+            total_winners: 1, // Partidas Totales
             total_winners_j1: 0,
             total_winners_j2: 0,
 
@@ -301,9 +301,6 @@ export default
         {
             if (a == "hint") this.Hint();
             else if (a == "help") this.Help();
-            else if (a == "restart") this.Restart();
-            else if (a == "print") this.Print();
-            else if (a == "exit") this.Exit();
         },
 
         /**
@@ -351,32 +348,6 @@ export default
             console.error("print");
             this.printed = true;
         },
-
-        /**
-         * Regresar a la pantala inicial
-         */
-        async Exit()
-        {
-            let title = "¿Quieres salir del juego?",
-                doc = "";
-            if (!this.printed) doc = "<b>No has descargado tu comprobante!</b>"
-            let res = await Swal.fire(
-            {
-                title: title,
-                html: doc,
-                showCancelButton: true,
-                confirmButtonColor: '#ee6055',
-                cancelButtonColor: '#68b63e',
-                cancelButtonText: 'Aún no',
-                confirmButtonText: 'Sí, salir',
-            })
-            if (res.isConfirmed) // Volver al inicio
-            {
-                this.$emit("exit");
-                this.$root.ChangeStage(3);
-            }
-        },
-
     },
     mounted()
     {

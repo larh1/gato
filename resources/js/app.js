@@ -21,7 +21,7 @@ const app = new Vue({
     el: "#app",
     router: router,
     data: {
-        current_progress: 2, // Inicio
+        current_progress: 1, // Inicio
         players:
         {
             player1:
@@ -57,7 +57,7 @@ const app = new Vue({
          */
         ChangeStage(current_stage)
         {
-            if (current_stage == 1)
+            if (current_stage == 1) // Pantalla inicial
                 this.current_progress = 2; // Juego iniciado
             else if (current_stage == 2)
                 this.current_progress = 3; // Victoria
@@ -65,6 +65,14 @@ const app = new Vue({
                 this.current_progress = 1; // Ventana inicial
             return this.current_progress;
             // return {...this.current_progress};
+        },
+
+        /**
+         * Volver a jugar la partida con los mismos jugadores
+         */
+        RestartGame()
+        {
+            this.current_progress = 2; // Juego iniciado
         },
 
         /**
@@ -96,6 +104,26 @@ const app = new Vue({
         {
             return this.winnerBoard;
         },
+
+        /**
+         * Limpiar todos los datos del juego
+         */
+        EndGame()
+        {
+            this.current_progress = 1;
+            this.players =
+            {
+                player1:
+                {
+                    name: "Jugador 1",
+                },
+                player2:
+                {
+                    name: "Jugador 2",
+                }
+            };
+            this.winnerBoard = [];
+        }
 
     },
     mounted()
