@@ -72,7 +72,7 @@ export default
             list_actions: [],
             winner_board: [],
             printed: false,
-            winner_name:"",
+            winner_name: "",
         }
     },
     methods:
@@ -148,7 +148,33 @@ export default
          */
         Print()
         {
-            console.error("print");
+            /**
+             * Obtener solo los datos para imprimir en el doc
+             */
+            let new_board = [];
+            for (let f = 0; f < this.winner_board.length; f++)
+            {
+                let row = [];
+                for (let c = 0; c < this.winner_board[0].length; c++)
+                {
+                    // Extraer clase de celda, de tiro y el simbolo
+                    const aux_cell = this.winner_board[f][c];
+                    const cell = {
+                        "cc": aux_cell.class_cell,
+                        "ct": aux_cell.class_tiro,
+                        "t": aux_cell.tiro,
+                    };
+                    row.push(cell);
+                }
+                new_board.push(row);
+            }
+            const json = JSON.stringify(new_board) // Convertir a json
+
+            // Char Random para no modificar data A-Z a-z
+            let data = String.fromCharCode(Math.floor(Math.random() * (65 - 90) + 97));
+            data += String.fromCharCode(Math.floor(Math.random() * (122 - 97) + 97));
+            data += Buffer.from(json, 'utf8').toString('base64') // A b64 para enviar
+            window.open("game/winner/" + data);
             this.printed = true;
         },
     },

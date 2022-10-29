@@ -52,7 +52,7 @@ export default
             players_names: [],
             finished: false,
             player_winner: "",
-            total_winners: 3, // Partidas Totales
+            total_winners: 1, // Partidas Totales
             total_winners_j1: 0,
             total_winners_j2: 0,
             hinted: 0,
@@ -302,9 +302,9 @@ export default
         {
             // Guardar datos del ganador
             this.$root.SaveWinnerBoard(
-            {
-                ...this.tablero
-            })
+                [
+                    ...this.tablero
+                ])
             this.$emit("showWinner");
         },
 
