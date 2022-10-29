@@ -4,11 +4,6 @@
         <div class="col col-md-8 mb-5">
             <!-- Timer -->
             <div class="text-center mt-4">
-                <span class="time_time">
-                    {{cur_time}}
-                </span>
-                <br>
-                <br>
                 <template v-if="finished">
                     <span class="current_player">Ganador: {{player_winner}}</span>
                 </template>
@@ -53,7 +48,6 @@ export default
             // Tablero
             tablero: [],
             list_actions: [],
-            cur_time: "00:00",
             rules_winners: [],
             players_names: [],
             finished: false,
@@ -62,10 +56,8 @@ export default
             total_winners_j1: 0,
             total_winners_j2: 0,
             hinted: 0,
-            // Cronometro
             current_player_name: "Jugador 1",
             current_player: 1,
-
             printed: false,
         }
     },
@@ -159,7 +151,6 @@ export default
 
             // Quitar celda de pista
             this.RemoveHint();
-
             let tiro = this.current_player == 1 ? "x" : "o";
             let cell = this.tablero[fila][columna];
 
@@ -174,7 +165,7 @@ export default
             this.current_player_name = this.players_names[this.current_player - 1];
             // Detectar Empate
             let libre = this.auxHint();
-            if (libre == 0)
+            if (!this.finished & libre == 0)
             {
                 Swal.fire(
                 {
