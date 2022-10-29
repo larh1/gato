@@ -4,7 +4,7 @@
     <div class="text-center" style="margin-top:-1rem">
         <img class="mx-auto" src="img/winner.png" alt="Winner.png" width="180">
     </div>
-    <p class="h5 text-center fw-bold text-white mb-2">JOSE PEREZ LEON</p>
+    <p class="h5 text-center fw-bold text-white mb-2">{{winner_name}}</p>
     <div class="board-container border mx-auto text-center">
         <table class="board" width="100%" height="100%">
             <tr v-for="(f,i) in winner_board" :key="i">
@@ -14,7 +14,7 @@
             </tr>
         </table>
     </div>
-    <p class="h6 text-white text-center mt-3">Tiempo total: 00:30 seg</p>
+    <br>
     <!-- Actions -->
     <div class="text-center ms-3">
         <span @click="CallAction(a.action)" v-for="(a,i) in list_actions" :key="i" :class="'game-actions '+a.class" data-bs-toggle="tooltip" data-bs-placement="top" :title="a.tooltip">
@@ -97,6 +97,7 @@ export default
                 icon: "fa-right-from-bracket",
                 action: "exit",
             }, ];
+            this.winner_name = this.$root.GerWinner();
         },
 
         /**

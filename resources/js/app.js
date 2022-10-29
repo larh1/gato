@@ -34,6 +34,7 @@ const app = new Vue({
             }
         },
         winnerBoard: [],
+        name_winner: "",
     },
     methods:
     {
@@ -73,6 +74,7 @@ const app = new Vue({
         RestartGame()
         {
             this.current_progress = 2; // Juego iniciado
+            this.name_winner = "";
         },
 
         /**
@@ -123,7 +125,24 @@ const app = new Vue({
                 }
             };
             this.winnerBoard = [];
-        }
+        },
+
+        /**
+         * Guarda el nombre del jugador ganador
+         * @param {string} name Nombre del jugador ganador
+         */
+        SaveWinner(name)
+        {
+            this.name_winner = name;
+        },
+
+        /**
+         * Obtiene el nombre del jugador ganador
+         */
+        GerWinner()
+        {
+            return this.name_winner;
+        },
 
     },
     mounted()

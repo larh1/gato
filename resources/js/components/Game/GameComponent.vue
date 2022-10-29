@@ -236,6 +236,7 @@ export default
                     if (this.total_winners_j1 >= this.total_winners ||
                         this.total_winners_j2 >= this.total_winners)
                     {
+                        this.$root.SaveWinner(this.current_player_name);
                         // Mostrar el ganador
                         setTimeout(() =>
                         {
