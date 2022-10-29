@@ -72,6 +72,7 @@ export default
             list_actions: [],
             winner_board: [],
             printed: false,
+            winner_name:"",
         }
     },
     methods:
