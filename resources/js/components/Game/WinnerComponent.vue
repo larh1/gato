@@ -8,7 +8,7 @@
     <div class="board-container border mx-auto text-center">
         <table class="board" width="100%" height="100%">
             <tr v-for="(f,i) in winner_board" :key="i">
-                <td :id="'cl_'+c.id" v-for="(c,j) in f" :key="j" class="cell" :class="c.class_cell" @click="Tiro(i,j)">
+                <td :id="'cl_'+c.id" v-for="(c,j) in f" :key="j" class="cell" :class="c.class_cell">
                     <span :class="c.class_tiro">{{c.tiro}}</span>
                 </td>
             </tr>
@@ -168,7 +168,11 @@ export default
                 }
                 new_board.push(row);
             }
-            const json = JSON.stringify(new_board) // Convertir a json
+            const json = JSON.stringify(
+            {
+                "player": this.winner_name,
+                "board": new_board
+            }) // Convertir a json
 
             // Char Random para no modificar data A-Z a-z
             let data = String.fromCharCode(Math.floor(Math.random() * (65 - 90) + 97));
