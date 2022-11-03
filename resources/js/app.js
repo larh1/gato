@@ -21,7 +21,7 @@ const app = new Vue({
     el: "#app",
     router: router,
     data: {
-        current_progress: 3, // Inicio
+        current_progress: 1, // Inicio
         players:
         {
             player1:

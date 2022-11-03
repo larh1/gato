@@ -22,45 +22,6 @@
 </div>
 </template>
 
-<style>
-.players .player {
-    color: white;
-    border: none;
-    text-align: center;
-    cursor: pointer;
-    font-size: 1.5rem;
-    margin-top: 5px;
-    background-color: transparent;
-}
-
-.animated {
-    animation: pulse 3s infinite;
-    animation-delay: 2s;
-}
-
-.player1 {
-    animation-delay: 4s;
-}
-
-.player:focus {
-    border: none;
-    outline: none;
-}
-
-.btn-action {
-    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.20);
-    border: 20px;
-    height: 2.7rem;
-    width: 2.7rem;
-    margin-left: .5rem;
-}
-
-.btn-action .btn-action_icon {
-    margin-top: 2px;
-    font-size: 1.7rem;
-}
-</style>
-
 <script>
 const BoardEmpty = r => require.ensure([], () => r(require("./Board/BoardEmpty.vue")), "game");
 export default
@@ -113,7 +74,6 @@ export default
 
                 if (new_name.length > 3 && new_name.length <= 30)
                 {
-                    //TODO: Guardar datos en General
                     // Cambiar Nombre
                     player.renamed = true;
                     player.name = new_name;

@@ -23,52 +23,6 @@
 </div>
 </template>
 
-<style>
-.board-container {
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    border-radius: 30px;
-    padding: 10px;
-}
-
-.b1,
-.b2 {
-    border-right: 1px solid var(--gray);
-}
-
-.top,
-.middle {
-    border-bottom: 1px solid var(--gray);
-}
-
-.cell-empty {
-    height: 33.33%;
-    width: 33.33%;
-    cursor: pointer;
-}
-
-.cell-empty:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.cell-empty span {
-    font-size: 2rem;
-    opacity: 0;
-}
-
-.cell-empty:hover span {
-    opacity: .5;
-}
-
-.cell-o {
-    color: var(--primary);
-}
-
-.cell-x {
-    color: var(--secondary);
-}
-</style>
-
 <script>
 export default
 {
